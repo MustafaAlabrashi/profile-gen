@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>بقالة بركة السلة - Barakat Al-Salla Grocery</title>
+
+  <!-- Google Fonts: Cairo -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            cairo: ['Cairo', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              green: '#1a5336',
+              greenDark: '#123b26',
+              gold: '#f1c40f',
+              cream: '#f7f3e9',
+              cardBg: '#fffdf6',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* Pattern banner top border styling */
+    .pattern-border {
+      background: repeating-linear-gradient(
+        90deg,
+        #f1c40f,
+        #f1c40f 16px,
+        transparent 16px,
+        transparent 32px
+      );
+    }
+
+    /* Custom Toast Animation */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .toast-anim {
+      animation: fadeInUp 0.3s ease forwards;
+    }
+
+    /* Dark mode overrides */
+    .dark body {
+      background-color: #121814;
+    }
+    
+    .dark .main-card {
+      background-color: #1c241f;
+      border-color: #2a362e;
+    }
+
+    .dark .sub-card {
+      background-color: #242f28;
+      border-color: #2f3e35;
+      color: #f1f5f9;
+    }
+  </style>
+</head>
+<body class="bg-[#f7f3e9] text-gray-900 min-h-full flex items-center justify-center p-3 sm:p-6 transition-colors duration-300">
+
+  <!-- Main Responsive Card Container with larger padding -->
+  <div class="main-card w-full max-w-[480px] bg-[#fffdf6] rounded-3xl p-6 sm:p-7 shadow-2xl border border-amber-100/80 relative transition-all duration-300">
+    
+    <div class="flex items-center justify-between mb-5 px-1">
+      <div class="flex items-center space-x-3 space-x-reverse">
+        <!-- Dark/Light Theme Switcher (Enlarged) -->
+        <button id="themeToggleBtn" onclick="toggleTheme()" aria-label="Toggle Theme" class="w-12 h-12 rounded-full bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 flex items-center justify-center text-gray-800 dark:text-amber-400 hover:bg-gray-50 dark:hover:bg-gray-700 transition shadow-sm active:scale-95">
+          <!-- Sun Icon -->
+          <svg id="sunIcon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+          </svg>
+          <!-- Moon Icon -->
+          <svg id="moonIcon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+          </svg>
+        </button>
+
+        <!-- Language Switcher Toggle (Enlarged) -->
+        <button id="langToggleBtn" onclick="toggleLanguage()" class="w-12 h-12 rounded-full bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 flex items-center justify-center font-extrabold text-base text-gray-800 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700 transition shadow-sm active:scale-95">
+          EN
+        </button>
+      </div>
+
+      <!-- Verified badge icon indicator (Enlarged) -->
+      <div class="flex items-center text-sm font-extrabold text-[#1a5336] dark:text-emerald-400 bg-emerald-100/70 dark:bg-emerald-950/80 px-3.5 py-1.5 rounded-full border border-emerald-300/60 dark:border-emerald-800/60">
+        <svg class="w-5 h-5 ml-1.5 mr-0 rtl:ml-1.5 rtl:mr-0 ltr:mr-1.5 ltr:ml-0 text-emerald-600 dark:text-emerald-400" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+        </svg>
+        <span data-key="verified">موثوق</span>
+      </div>
+    </div>
+
+    <div class="relative bg-[#1a5336] rounded-2xl pt-8 pb-9 px-5 text-center text-white shadow-lg overflow-hidden transition-colors">
+      <div class="pattern-border absolute top-0 left-0 right-0 h-2.5"></div>
+      
+      <!-- Cart Icon Logo (Significantly Larger) -->
+      <div class="w-20 h-20 mx-auto mb-3 flex items-center justify-center text-[#f1c40f] filter drop-shadow">
+        <svg class="w-16 h-16" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zm-9.83-3.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1.003 1.003 0 0 0 20 6H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.45C4.52 16.37 5.24 17 6 17h12v-2H7.42c-.14 0-.25-.11-.25-.25z"/>
+        </svg>
+      </div>
+
+      <!-- Store Title (Big, bold font) -->
+      <h1 class="text-3xl sm:text-4xl font-black tracking-wide text-white" data-key="storeTitle">
+        بقالة بركة السلة
+      </h1>
+      <p class="text-sm sm:text-base text-amber-300 font-bold mt-2" data-key="storeSubtitle">
+        حلول تسوق وسلع غذائية طازجة
+      </p>
+    </div>
+
+    <a href="https://wa.me/966535611676" target="_blank" rel="noopener noreferrer" 
+       class="w-full mt-5 py-4 px-5 bg-[#1a5336] hover:bg-[#123b26] text-[#f1c40f] font-black text-lg sm:text-xl rounded-2xl flex items-center justify-center space-x-3 space-x-reverse shadow-lg transition-all duration-200 active:scale-[0.98] group">
+      <svg class="w-7 h-7 fill-current transform group-hover:scale-110 transition-transform" viewBox="0 0 24 24">
+        <path d="M12.012 2c-5.506 0-9.989 4.478-9.989 9.984 0 1.758.459 3.474 1.33 4.982l-1.412 5.16 5.281-1.385a9.927 9.927 0 004.79 1.228h.005c5.503 0 9.986-4.478 9.986-9.985 0-2.667-1.037-5.176-2.922-7.062A9.905 9.905 0 0012.012 2zm.005 18.257h-.004a8.267 8.267 0 01-4.212-1.157l-.301-.18-3.13.821.835-3.048-.197-.314a8.272 8.272 0 01-1.267-4.394c0-4.566 3.715-8.28 8.281-8.28 2.212 0 4.291.862 5.856 2.428a8.23 8.23 0 012.424 5.858c0 4.567-3.716 8.283-8.285 8.283z"/>
+      </svg>
+      <span data-key="whatsappBtn">راسلنا على واتساب</span>
+    </a>
+
+    <div class="grid grid-cols-4 gap-3 mt-4">
+      <!-- Call Button -->
+      <a href="tel:+966535611676" class="sub-card bg-white dark:bg-gray-800 border-2 border-gray-100 dark:border-gray-700/80 rounded-2xl p-3 flex flex-col items-center justify-center text-center text-gray-900 dark:text-gray-100 hover:border-emerald-500 hover:shadow-md transition group">
+        <div class="p-2.5 rounded-full bg-emerald-50 dark:bg-emerald-900/40 text-[#1a5336] dark:text-emerald-400 mb-1.5 group-hover:scale-110 transition-transform">
+          <svg class="w-6 h-6 stroke-current fill-none stroke-[2.2]" viewBox="0 0 24 24">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+        </div>
+        <span class="text-sm font-extrabold" data-key="btnCall">اتصال</span>
+      </a>
+
+      <!-- Location Button -->
+      <a href="https://maps.google.com/?q=الرياض+حي+الدريهمية+شارع+ابن+عساكر" target="_blank" rel="noopener noreferrer" class="sub-card bg-white dark:bg-gray-800 border-2 border-gray-100 dark:border-gray-700/80 rounded-2xl p-3 flex flex-col items-center justify-center text-center text-gray-900 dark:text-gray-100 hover:border-emerald-500 hover:shadow-md transition group">
+        <div class="p-2.5 rounded-full bg-emerald-50 dark:bg-emerald-900/40 text-[#1a5336] dark:text-emerald-400 mb-1.5 group-hover:scale-110 transition-transform">
+          <svg class="w-6 h-6 stroke-current fill-none stroke-[2.2]" viewBox="0 0 24 24">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+        </div>
+        <span class="text-sm font-extrabold" data-key="btnLocation">الموقع</span>
+      </a>
+
+      <!-- Save Contact VCard -->
+      <button onclick="downloadVCard()" class="sub-card bg-white dark:bg-gray-800 border-2 border-gray-100 dark:border-gray-700/80 rounded-2xl p-3 flex flex-col items-center justify-center text-center text-gray-900 dark:text-gray-100 hover:border-emerald-500 hover:shadow-md transition group">
+        <div class="p-2.5 rounded-full bg-emerald-50 dark:bg-emerald-900/40 text-[#1a5336] dark:text-emerald-400 mb-1.5 group-hover:scale-110 transition-transform">
+          <svg class="w-6 h-6 stroke-current fill-none stroke-[2.2]" viewBox="0 0 24 24">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="8.5" cy="7" r="4"/>
+            <line x1="20" y1="8" x2="20" y2="14"/>
+            <line x1="23" y1="11" x2="17" y2="11"/>
+          </svg>
+        </div>
+        <span class="text-sm font-extrabold" data-key="btnSave">حفظ</span>
+      </button>
+
+      <!-- Share Button -->
+      <button onclick="shareProfile()" class="sub-card bg-white dark:bg-gray-800 border-2 border-gray-100 dark:border-gray-700/80 rounded-2xl p-3 flex flex-col items-center justify-center text-center text-gray-900 dark:text-gray-100 hover:border-emerald-500 hover:shadow-md transition group">
+        <div class="p-2.5 rounded-full bg-emerald-50 dark:bg-emerald-900/40 text-[#1a5336] dark:text-emerald-400 mb-1.5 group-hover:scale-110 transition-transform">
+          <svg class="w-6 h-6 stroke-current fill-none stroke-[2.2]" viewBox="0 0 24 24">
+            <circle cx="18" cy="5" r="3"/>
+            <circle cx="6" cy="12" r="3"/>
+            <circle cx="18" cy="19" r="3"/>
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+          </svg>
+        </div>
+        <span class="text-sm font-extrabold" data-key="btnShare">مشاركة</span>
+      </button>
+    </div>
+
+    <div class="mt-5 space-y-3">
+      
+      <!-- Phone Number Card with Copy Functionality -->
+      <div class="sub-card bg-white dark:bg-gray-800 border-2 border-gray-100 dark:border-gray-700/80 rounded-2xl p-4 flex items-center justify-between shadow-sm">
+        <button onclick="copyPhone()" class="p-2.5 text-gray-400 hover:text-[#1a5336] dark:hover:text-emerald-400 transition" title="نسخ رقم الهاتف">
+          <svg class="w-6 h-6 stroke-current fill-none stroke-[2.2]" viewBox="0 0 24 24">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+          </svg>
+        </button>
+
+        <div class="text-right rtl:text-right ltr:text-left flex-1 px-3">
+          <span class="block text-xs text-gray-500 dark:text-gray-400 font-bold mb-0.5" data-key="phoneLabel">رقم الهاتف</span>
+          <a href="tel:+966535611676" dir="ltr" class="text-base sm:text-lg font-black text-gray-900 dark:text-gray-100 hover:text-emerald-600 transition">
+            +966535611676
+          </a>
+        </div>
+
+        <div class="p-2.5 text-[#1a5336] dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/40 rounded-xl">
+          <svg class="w-6 h-6 stroke-current fill-none stroke-[2.2]" viewBox="0 0 24 24">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Address Card -->
+      <div class="sub-card bg-white dark:bg-gray-800 border-2 border-gray-100 dark:border-gray-700/80 rounded-2xl p-4 flex items-center justify-between shadow-sm">
+        <div></div>
+        <div class="text-right rtl:text-right ltr:text-left flex-1 px-3">
+          <span class="block text-xs text-gray-500 dark:text-gray-400 font-bold mb-0.5" data-key="addressLabel">العنوان</span>
+          <span class="text-sm sm:text-base font-extrabold text-gray-900 dark:text-gray-100 leading-snug block" data-key="addressVal">
+            الرياض - حي الدريهمية - شارع ابن عساكر
+          </span>
+        </div>
+        <div class="p-2.5 text-[#1a5336] dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/40 rounded-xl">
+          <svg class="w-6 h-6 stroke-current fill-none stroke-[2.2]" viewBox="0 0 24 24">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="grid grid-cols-2 gap-3 mt-3">
+      <!-- Working Hours Card -->
+      <div class="sub-card bg-white dark:bg-gray-800 border-2 border-gray-100 dark:border-gray-700/80 rounded-2xl p-4 text-center shadow-sm">
+        <span class="text-xs sm:text-sm font-extrabold text-[#1a5336] dark:text-emerald-400 block mb-1" data-key="hoursLabel">
+          ساعات العمل
+        </span>
+        <span class="text-xs sm:text-sm font-extrabold text-gray-800 dark:text-gray-200 leading-relaxed block" data-key="hoursVal">
+          الساعة 10ص الي<br>الساعة 12ص
+        </span>
+      </div>
+
+      <!-- Delivery Region Card -->
+      <div class="sub-card bg-white dark:bg-gray-800 border-2 border-gray-100 dark:border-gray-700/80 rounded-2xl p-4 text-center shadow-sm">
+        <span class="text-xs sm:text-sm font-extrabold text-[#1a5336] dark:text-emerald-400 block mb-1" data-key="deliveryLabel">
+          منطقة التوصيل
+        </span>
+        <span class="text-xs sm:text-sm font-extrabold text-gray-800 dark:text-gray-200 leading-relaxed block" data-key="deliveryVal">
+          التوصيل داخل الحي<br>خلال 30 دقيقه
+        </span>
+      </div>
+    </div>
+
+    <!-- Minimum Order Card -->
+    <div class="sub-card bg-white dark:bg-gray-800 border-2 border-gray-100 dark:border-gray-700/80 rounded-2xl p-4 text-center shadow-sm mt-3">
+      <span class="text-xs sm:text-sm font-extrabold text-[#1a5336] dark:text-emerald-400 block" data-key="minOrderLabel">
+        الحد الأدنى للطلب
+      </span>
+      <span class="text-lg sm:text-xl font-black text-gray-900 dark:text-white mt-1 block" data-key="minOrderVal">
+        10 ريال
+      </span>
+    </div>
+
+    <footer class="mt-7 text-center text-xs sm:text-sm text-gray-500 dark:text-gray-400 font-bold">
+      <p data-key="footerText">© 2026 Deabashi Studios</p>
+    </footer>
+
+  </div>
+
+  <div id="toast" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-gray-900/95 text-white text-sm font-bold px-5 py-3 rounded-full shadow-2xl hidden z-50 toast-anim flex items-center space-x-2 space-x-reverse border border-gray-700">
+    <span id="toastMsg">تم النسخ بنجاح</span>
+  </div>
+
+  <script>
+    // Translations Data
+    const translations = {
+      ar: {
+        verified: "موثوق",
+        storeTitle: "بقالة بركة السلة",
+        storeSubtitle: "حلول تسوق وسلع غذائية طازجة",
+        whatsappBtn: "راسلنا على واتساب",
+        btnCall: "اتصال",
+        btnLocation: "الموقع",
+        btnSave: "حفظ",
+        btnShare: "مشاركة",
+        phoneLabel: "رقم الهاتف",
+        addressLabel: "العنوان",
+        addressVal: "الرياض - حي الدريهمية - شارع ابن عساكر",
+        hoursLabel: "ساعات العمل",
+        hoursVal: "الساعة 10ص الي<br>الساعة 12ص",
+        deliveryLabel: "منطقة التوصيل",
+        deliveryVal: "التوصيل داخل الحي<br>خلال 30 دقيقه",
+        minOrderLabel: "الحد الأدنى للطلب",
+        minOrderVal: "10 ريال",
+        footerText: "© 2026 Plus Studios",
+        toastCopied: "تم نسخ رقم الهاتف!",
+        toastLinkCopied: "تم نسخ رابط الصفحة!",
+      },
+      en: {
+        verified: "Verified",
+        storeTitle: "Barakat Al-Salla Grocery",
+        storeSubtitle: "Grocery & Fresh Goods Solutions",
+        whatsappBtn: "Message on WhatsApp",
+        btnCall: "Call",
+        btnLocation: "Location",
+        btnSave: "Save VCard",
+        btnShare: "Share",
+        phoneLabel: "Phone Number",
+        addressLabel: "Address",
+        addressVal: "Riyadh - Al-Diraihemiya - Ibn Asaker St.",
+        hoursLabel: "Working Hours",
+        hoursVal: "10:00 AM to<br>12:00 AM",
+        deliveryLabel: "Delivery Area",
+        deliveryVal: "In-neighborhood delivery<br>within 30 mins",
+        minOrderLabel: "Minimum Order",
+        minOrderVal: "10 SAR",
+        footerText: "© 2026 Plus Studios",
+        toastCopied: "Phone number copied!",
+        toastLinkCopied: "Profile link copied!",
+      }
+    };
+
+    let currentLang = 'ar';
+
+    // Language Switcher Function
+    function toggleLanguage() {
+      currentLang = currentLang === 'ar' ? 'en' : 'ar';
+      const htmlEl = document.documentElement;
+      
+      // Update dir and lang attribute
+      htmlEl.setAttribute('dir', currentLang === 'ar' ? 'rtl' : 'ltr');
+      htmlEl.setAttribute('lang', currentLang);
+
+      // Update button text
+      document.getElementById('langToggleBtn').innerText = currentLang === 'ar' ? 'EN' : 'عربي';
+
+      // Update translation keys
+      document.querySelectorAll('[data-key]').forEach(elem => {
+        const key = elem.getAttribute('data-key');
+        if (translations[currentLang][key]) {
+          elem.innerHTML = translations[currentLang][key];
+        }
+      });
+    }
+
+    // Theme Switcher Function
+    function toggleTheme() {
+      const htmlClass = document.documentElement.classList;
+      const sunIcon = document.getElementById('sunIcon');
+      const moonIcon = document.getElementById('moonIcon');
+
+      if (htmlClass.contains('dark')) {
+        htmlClass.remove('dark');
+        sunIcon.classList.add('hidden');
+        moonIcon.classList.remove('hidden');
+      } else {
+        htmlClass.add('dark');
+        moonIcon.classList.add('hidden');
+        sunIcon.classList.remove('hidden');
+      }
+    }
+
+    // Dynamic Toast Messenger
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toastMsg');
+      toastMsg.innerText = message;
+      toast.classList.remove('hidden');
+
+      setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 2500);
+    }
+
+    // Copy Phone Number to Clipboard
+    function copyPhone() {
+      const phoneNumber = '+966535611676';
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(phoneNumber).then(() => {
+          showToast(translations[currentLang].toastCopied);
+        });
+      } else {
+        const textArea = document.createElement('textarea');
+        textArea.value = phoneNumber;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        showToast(translations[currentLang].toastCopied);
+      }
+    }
+
+    // Dynamic VCard (.vcf) Generator and Downloader
+    function downloadVCard() {
+      const vcardData = 
+`BEGIN:VCARD
+VERSION:3.0
+FN:بقالة بركة السلة
+ORG:Barakat Al-Salla Grocery
+TEL;TYPE=CELL,VOICE:+966535611676
+ADR;TYPE=WORK:;;شارع ابن عساكر;حي الدريهمية;الرياض;;المملكة العربية السعودية
+NOTE:بقالة بركة السلة - توصيل خضار ومواد غذائية
+END:VCARD`;
+
+      const blob = new Blob([vcardData], { type: 'text/vcard;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'Barakat_Al_Salla_Grocery.vcf');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    // Native Web Share API or Clipboard Fallback
+    function shareProfile() {
+      if (navigator.share) {
+        navigator.share({
+          title: 'بقالة بركة السلة',
+          text: 'بطاقة معلومات بقالة بركة السلة',
+          url: window.location.href,
+        }).catch(() => {});
+      } else {
+        copyPhone();
+      }
+    }
+  </script>
+</body>
+</html>
